@@ -53,7 +53,7 @@ class Fish(Image):
             else:
                 Clock.schedule_once(game_screen.level_complete, 1.2)
                 self.fish_index = 0
-            return True
+         return True
 
 
 
