@@ -28,7 +28,7 @@ class MenuScreen(Screen):
 
 
 class Fish(Image):
-    hp =0
+    hp = 0
     fish_index = 0
     def new_fish(self, *args):
         app = App.get_running_app()
@@ -53,13 +53,28 @@ class Fish(Image):
             else:
                 Clock.schedule_once(game_screen.level_complete, 1.2)
                 self.fish_index = 0
-         return True
+        return True
 
 
 
 class GameScreen(Screen):
-   def go_menu(self):
-       self.manager.current = "menu"
+    score = NumericProperty(0)
+    def go_home(self):
+        self.manager.current = "menu"
+    def on_pre_enter(self, *args):
+        self.score = 0
+        app = App.get_running_app()
+        app.LEVEL = 0
+        self.ids.fish.fish_index = 0
+        self.ids.level_complete.opacity = 0
+
+
+    def on_enter(self, *args):
+        self.ids.fish.new_fish()
+    def level_complete(self, *args):
+        self.ids.level_complete.opacity = 1
+
+
 
 
 
@@ -91,3 +106,4 @@ class ClickerApp(App):
 
 app = ClickerApp()
 app.run()
+
