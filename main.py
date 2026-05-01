@@ -17,6 +17,7 @@ Window.size = (450, 900)
 class MenuScreen(Screen):
    def go_game(self):
        self.manager.current = "game"
+       self.manager.transition.direction = "up"
 
 
    def go_settings(self):
@@ -59,8 +60,7 @@ class Fish(Image):
 
 class GameScreen(Screen):
     score = NumericProperty(0)
-    def go_home(self):
-        self.manager.current = "menu"
+
     def on_pre_enter(self, *args):
         self.score = 0
         app = App.get_running_app()
@@ -73,6 +73,8 @@ class GameScreen(Screen):
         self.ids.fish.new_fish()
     def level_complete(self, *args):
         self.ids.level_complete.opacity = 1
+    def go_home(self):
+        self.manager.current = "menu"
 
 
 
@@ -106,4 +108,5 @@ class ClickerApp(App):
 
 app = ClickerApp()
 app.run()
+
 
