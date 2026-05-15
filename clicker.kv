@@ -10,10 +10,17 @@
     size_hint: 1, 0.15
     background_color: from_hex(main_color)
     color: 0, 0, 0, 1  # чорний текст
+
     on_press:
         self.background_color = from_hex(main_color_dark)
     on_release:
         self.background_color = from_hex(main_color)
+
+    canvas.before:
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, ]  # Закруглюємо кути на 20 пікселів
 
 <MenuScreen>:
     BoxLayout:
@@ -57,10 +64,21 @@
             font_size: "30sp"
             size_hint_y: 0.1
 
-        # ДОДАЄМО РИБУ (вона тепер з'явиться на екрані)
-        Fish:
-            id: fish
-            size_hint: 1, 0.6
+        RelativeLayout:
+            id: game_zone
+            size_hint_y: 0.6  # Займає більшу частину екрана
+            Fish:
+                id: fish
+                size_hint: None, None
+                size: dp(200), dp(200)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        #Fish:
+            #id: fish
+            ## Видаляємо size_hint, щоб дозволити рибі міняти розмір
+            #size_hint: None, None
+            #size: dp(200), dp(200)
+            ## Центруємо її вручну
+            #center: self.parent.center
 
         # ТЕКСТ ПЕРЕМОГИ (спочатку невидимий)
         Label:
